@@ -6,7 +6,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import torch.nn.functional as F
-import sys
  
 
 device = (
@@ -31,9 +30,6 @@ class Model(nn.Module):
         return x
 
 def main():
-    epochs = int(sys.argv[1])
-    print(epochs)
-
     forest_train = pd.read_csv('forest_train.csv')
     forest_val = pd.read_csv('forest_val.csv')
 
@@ -63,6 +59,7 @@ def main():
     val_loader = DataLoader(list(zip(X_val, y_val)), batch_size=64)
 
     # Training loop
+    epochs = 10
     for epoch in range(epochs):
         model.train()  # Set model to training mode
         running_loss = 0.0
