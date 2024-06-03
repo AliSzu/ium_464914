@@ -46,7 +46,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: data
-          path: forest_train.csv 
 
       - name: Train Model
         run: python3 model.py
