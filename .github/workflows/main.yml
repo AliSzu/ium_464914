@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: data
-          path: data
+          path: forest_train.csv forest_test.csv forest_val.csv
 
   model_training:
     needs: data_processing
