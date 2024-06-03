@@ -50,6 +50,7 @@ jobs:
         with:
           name: data
           path: |
+            data
             forest_train.csv 
             forest_test.csv 
             forest_val.csv
