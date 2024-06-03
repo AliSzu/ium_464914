@@ -28,10 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: data
-          path: |
-            forest_train.csv 
-            forest_test.csv 
-            forest_val.csv
+          path: data/forest_train.csv 
 
   model_training:
     needs: data_processing
@@ -49,11 +46,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: data
-          path: |
-            data
-            forest_train.csv 
-            forest_test.csv 
-            forest_val.csv
+          path: data/forest_train.csv 
 
       - name: Train Model
         run: python3 model.py
@@ -80,10 +73,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: data
-          path: |
-            forest_train.csv 
-            forest_test.csv 
-            forest_val.csv
+          path: data/forest_train.csv 
 
       - name: Download Model Artifact
         uses: actions/download-artifact@v4
