@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -46,26 +46,29 @@ jobs:
             pip install pandas scikit-learn torch
 
       - name: Download Data Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: data
-          path: data
+          path: |
+            forest_train.csv 
+            forest_test.csv 
+            forest_val.csv
 
       - name: Train Model
         run: python3 model.py --epochs ${{ github.event.inputs.epochs }}
 
       - name: Upload Model Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: model
-          path: model
+          path: model.pth
 
   model_evaluation:
     needs: model_training
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -73,23 +76,26 @@ jobs:
           pip install pandas torch scikit-learn numpy
 
       - name: Download Data Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: data
-          path: data
+          path: |
+            forest_train.csv 
+            forest_test.csv 
+            forest_val.csv
 
       - name: Download Model Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: model
-          path: model
+          path: model.pth
 
       - name: Evaluate Model
         run: |
           python3 prediction.py
 
       - name: Upload Evaluation Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: evaluation
           path: |
