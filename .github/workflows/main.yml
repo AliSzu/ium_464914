@@ -28,7 +28,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: data
-          path: forest_train.csv 
+          path: |
+            forest_train.csv 
+            forest_test.csv
+            forest_val.csv
 
   model_training:
     needs: data_processing
@@ -72,13 +75,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: data
-          path: data/forest_train.csv 
 
       - name: Download Model Artifact
         uses: actions/download-artifact@v4
         with:
           name: model
-          path: model.pth
 
       - name: Evaluate Model
         run: |
@@ -88,5 +89,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: evaluation
-          path: |
-            data/predictions.txt
+          path: predictions.txt
