@@ -1,0 +1,35 @@
+name: IUM
+
+on:
+  workflow_dispatch:
+    inputs:
+      learningRate:
+        description: 'Learning Rate'
+        required: true
+        default: '0.001'
+      epochs:
+        description: 'Number of epochs'
+        required: true
+        default: '5'
+
+jobs:
+  data_processing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pandas scikit-learn
+
+      - name: Data Preprocessing
+        run: |
+          python3 preprocess_data.py
+
+      - name: Upload Data Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: data
+          path: data
