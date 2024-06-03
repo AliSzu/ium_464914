@@ -55,7 +55,7 @@ jobs:
             forest_val.csv
 
       - name: Train Model
-        run: python3 model.py --epochs ${{ github.event.inputs.epochs }}
+        run: python3 model.py
 
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
